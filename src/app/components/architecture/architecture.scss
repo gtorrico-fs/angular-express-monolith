@@ -1,0 +1,329 @@
+@use '../../../../src/styles.scss' as *;
+
+.arch-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .arch-header {
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: $dark-main;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: $text-muted;
+    }
+  }
+
+  .diagram-card {
+    @include card-base;
+    padding: 28px;
+    background-color: #ffffff;
+
+    .diagram-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+
+      mat-icon {
+        color: $angular-red;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $dark-main;
+      }
+    }
+
+    .nodes-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .node-box {
+        @include card-base;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-width: 160px;
+
+        .node-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: $radius-sm;
+          border: 2px solid $dark-border;
+          background-color: $angular-red-light;
+          color: $angular-red;
+          @include flex-center;
+          margin-bottom: 10px;
+
+          mat-icon {
+            font-size: 24px;
+          }
+        }
+
+        .node-name {
+          font-weight: 800;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          color: $dark-main;
+        }
+
+        .node-sub {
+          font-size: 0.75rem;
+          font-family: $font-mono;
+          color: $text-muted;
+          margin-top: 2px;
+        }
+
+        &.monolith {
+          flex: 1;
+          min-width: 320px;
+          background-color: #ffffff;
+          color: $dark-main;
+          border: 2px solid $dark-border;
+          box-shadow: $shadow-hard-red;
+          position: relative;
+          padding: 24px;
+
+          .monolith-badge {
+            position: absolute;
+            top: -12px;
+            background-color: $angular-red;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: $radius-sm;
+            border: 1px solid $dark-border;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+          }
+
+          .sub-nodes {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            margin-top: 12px;
+
+            .sub-node {
+              flex: 1;
+              background-color: $bg-panel;
+              border: 2px solid $dark-border;
+              padding: 12px;
+              border-radius: $radius-sm;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              text-align: left;
+
+              mat-icon {
+                font-size: 24px;
+              }
+
+              &.angular {
+                color: $angular-red;
+              }
+
+              &.express {
+                color: #2563eb;
+              }
+
+              strong {
+                display: block;
+                font-size: 0.85rem;
+                font-weight: 800;
+              }
+
+              span {
+                display: block;
+                font-size: 0.7rem;
+                font-family: $font-mono;
+                color: $text-muted;
+              }
+            }
+
+            .divider {
+              color: $dark-main;
+              font-weight: 800;
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+
+      .connector-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: $dark-main;
+
+        mat-icon {
+          font-size: 24px;
+          color: $angular-red;
+        }
+
+        span {
+          font-size: 0.7rem;
+          font-weight: 800;
+          font-family: $font-mono;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .tester-card {
+    @include card-base;
+    padding: 24px;
+
+    .tester-header {
+      @include flex-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid $dark-border;
+
+      .panel-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        mat-icon {
+          color: $angular-red;
+        }
+
+        h3 {
+          font-size: 1.05rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          color: $dark-main;
+        }
+      }
+    }
+
+    .tester-body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      .endpoints-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .section-label {
+          font-size: 0.75rem;
+          font-weight: 800;
+          color: $text-muted;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .endpoint-btn {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 14px;
+          border-radius: $radius-sm;
+          border: 2px solid $dark-border;
+          box-shadow: $shadow-hard-sm;
+          background-color: #ffffff;
+          cursor: pointer;
+          transition: all 0.1s ease;
+          font-family: $font-mono;
+          font-size: 0.8rem;
+
+          &:hover {
+            border-color: $angular-red;
+            background-color: $angular-red-light;
+          }
+
+          .method {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: $radius-sm;
+            border: 1px solid $dark-border;
+
+            &.get {
+              background-color: #dbeafe;
+              color: #1e40af;
+            }
+
+            &.post {
+              background-color: #dcfce7;
+              color: #15803d;
+            }
+          }
+
+          .url {
+            color: $dark-main;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .console-wrapper {
+        border-radius: $radius-sm;
+        background-color: #1a1a1a;
+        color: #38bdf8;
+        border: 2px solid $dark-border;
+        box-shadow: $shadow-hard-sm;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .console-header {
+          @include flex-between;
+          padding: 10px 16px;
+          background-color: #262626;
+          border-bottom: 2px solid #333333;
+
+          .console-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-family: $font-mono;
+            color: #f8fafc;
+            font-weight: 700;
+            text-transform: uppercase;
+
+            mat-icon {
+              font-size: 16px;
+              color: #38bdf8;
+            }
+          }
+        }
+
+        .console-body {
+          padding: 16px;
+          font-size: 0.85rem;
+          font-family: $font-mono;
+          line-height: 1.5;
+          max-height: 380px;
+          overflow-y: auto;
+          white-space: pre-wrap;
+          word-break: break-all;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,247 @@
+@use '../../../../src/styles.scss' as *;
+
+.products-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .products-bar {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .bar-title {
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $dark-main;
+      }
+
+      p {
+        font-size: 0.85rem;
+        color: $text-muted;
+
+        code {
+          background-color: $angular-red-light;
+          border: 1px solid $angular-red;
+          padding: 2px 6px;
+          border-radius: $radius-sm;
+          color: $angular-red;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        border: 2px solid $dark-border;
+        padding: 6px 12px;
+        border-radius: $radius-sm;
+        box-shadow: $shadow-hard-sm;
+
+        mat-icon {
+          color: $text-muted;
+          font-size: 20px;
+        }
+
+        input {
+          border: none;
+          outline: none;
+          font-size: 0.85rem;
+          font-family: inherit;
+          color: $dark-main;
+          background: transparent;
+
+          &::placeholder {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+
+    .empty-state {
+      grid-column: 1 / -1;
+      @include card-base;
+      padding: 48px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        color: $text-light;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: $text-muted;
+      }
+    }
+
+    .product-card {
+      @include card-base;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+
+      .product-header {
+        @include flex-between;
+        margin-bottom: 12px;
+
+        .category-chip {
+          font-size: 0.75rem;
+          font-weight: 800;
+          font-family: $font-mono;
+          color: $angular-red;
+          background-color: $angular-red-light;
+          border: 1px solid $angular-red;
+          padding: 2px 8px;
+          border-radius: $radius-sm;
+          text-transform: uppercase;
+        }
+      }
+
+      .product-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: $dark-main;
+        margin-bottom: 16px;
+      }
+
+      .product-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background-color: $bg-panel;
+        padding: 12px;
+        border-radius: $radius-sm;
+        border: 2px solid $dark-border;
+        margin-bottom: 16px;
+
+        .detail-item {
+          @include flex-between;
+          font-size: 0.825rem;
+
+          .detail-label {
+            color: $text-muted;
+            font-weight: 600;
+          }
+
+          .detail-value {
+            font-weight: 700;
+            color: $dark-main;
+
+            &.price {
+              color: #15803d;
+              font-weight: 800;
+              font-family: $font-mono;
+            }
+          }
+        }
+      }
+
+      .product-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  /* Modal styling */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(26, 26, 26, 0.7);
+    @include flex-center;
+    z-index: 1000;
+    padding: 16px;
+
+    .modal-card {
+      background-color: #ffffff;
+      border-radius: $radius-sm;
+      border: 2px solid $dark-border;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 8px 8px 0px #1a1a1a;
+      overflow: hidden;
+
+      .modal-header {
+        @include flex-between;
+        padding: 16px 24px;
+        background-color: $bg-panel;
+        border-bottom: 2px solid $dark-border;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: $dark-main;
+
+          mat-icon {
+            color: $angular-red;
+          }
+        }
+
+        .close-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: $text-muted;
+
+          &:hover {
+            color: $dark-main;
+          }
+        }
+      }
+
+      .modal-body {
+        padding: 24px;
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+      }
+
+      .modal-footer {
+        padding: 16px 24px;
+        background-color: $bg-panel;
+        border-top: 2px solid $dark-border;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+    }
+  }
+}

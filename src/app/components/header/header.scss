@@ -1,0 +1,166 @@
+@use '../../../../src/styles.scss' as *;
+
+.main-header {
+  background-color: #ffffff;
+  color: $dark-main;
+  border-bottom: 2px solid $dark-border;
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .brand-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      background-color: $angular-red;
+      border: 2px solid $dark-border;
+      box-shadow: 3px 3px 0px $dark-border;
+      border-radius: $radius-sm;
+      @include flex-center;
+      color: #ffffff;
+
+      mat-icon {
+        font-size: 26px;
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    .brand-text {
+      .title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .brand-title {
+          font-size: 1.2rem;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          color: $dark-main;
+        }
+
+        .badge {
+          border: 1px solid $dark-border;
+          font-family: $font-mono;
+          background-color: $angular-red-light;
+          color: $angular-red;
+        }
+      }
+
+      .brand-subtitle {
+        font-size: 0.8rem;
+        color: $text-muted;
+        font-family: $font-mono;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: $bg-panel;
+      padding: 6px 14px;
+      border-radius: $radius-sm;
+      border: 2px solid $dark-border;
+      box-shadow: 2px 2px 0px $dark-border;
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid $dark-border;
+
+        &.online {
+          background-color: #22c55e;
+        }
+
+        &.warning {
+          background-color: #eab308;
+        }
+      }
+
+      .status-info {
+        display: flex;
+        flex-direction: column;
+
+        .status-label {
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: $text-muted;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .status-value {
+          font-size: 0.8rem;
+          font-weight: 700;
+          font-family: $font-mono;
+          color: $dark-main;
+        }
+      }
+    }
+  }
+
+  .nav-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    border-top: 1px solid $border-light;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: $text-muted;
+      font-family: inherit;
+      font-size: 0.825rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+
+      mat-icon {
+        font-size: 18px;
+      }
+
+      &:hover {
+        color: $dark-main;
+        background-color: $bg-panel;
+      }
+
+      &.active {
+        color: $angular-red;
+        border-bottom-color: $angular-red;
+        background-color: $angular-red-light;
+      }
+    }
+  }
+}

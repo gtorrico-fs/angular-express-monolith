@@ -1,0 +1,229 @@
+<div class="tasks-page">
+  <!-- Top Bar -->
+  <div class="tasks-bar">
+    <div class="bar-title">
+      <h2>Gestor de Tareas Monolíticas</h2>
+      <p>Operaciones CRUD en tiempo real consumiendo la API REST Express (<code class="mono">/api/tasks</code>)</p>
+    </div>
+    <button class="btn btn-primary" (click)="openModal()">
+      <mat-icon>add_task</mat-icon> Nueva Tarea API
+    </button>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="filters-row">
+    <span class="filter-label">Filtrar por Categoría:</span>
+    <button
+      class="filter-chip"
+      [class.active]="filterCategory() === 'TODAS'"
+      (click)="setCategoryFilter('TODAS')"
+    >
+      Todas ({{ tasks().length }})
+    </button>
+    <button
+      class="filter-chip"
+      [class.active]="filterCategory() === 'Backend'"
+      (click)="setCategoryFilter('Backend')"
+    >
+      Backend
+    </button>
+    <button
+      class="filter-chip"
+      [class.active]="filterCategory() === 'Frontend'"
+      (click)="setCategoryFilter('Frontend')"
+    >
+      Frontend
+    </button>
+    <button
+      class="filter-chip"
+      [class.active]="filterCategory() === 'API'"
+      (click)="setCategoryFilter('API')"
+    >
+      API
+    </button>
+    <button
+      class="filter-chip"
+      [class.active]="filterCategory() === 'DevOps'"
+      (click)="setCategoryFilter('DevOps')"
+    >
+      DevOps
+    </button>
+  </div>
+
+  <!-- Tasks Table / Cards -->
+  <div class="tasks-card-container">
+    @if (filteredTasks.length === 0) {
+      <div class="empty-state">
+        <mat-icon>search_off</mat-icon>
+        <h3>No se encontraron tareas</h3>
+        <p>Prueba agregar una nueva tarea o cambiar el filtro de categoría.</p>
+        <button class="btn btn-secondary" (click)="openModal()">
+          <mat-icon>add</mat-icon> Crear Tarea
+        </button>
+      </div>
+    } @else {
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Título de Tarea</th>
+              <th>Categoría</th>
+              <th>Prioridad</th>
+              <th>Asignado a</th>
+              <th>Acciones REST</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (task of filteredTasks; track task.id) {
+              <tr>
+                <td>
+                  <button
+                    class="badge-btn"
+                    (click)="onToggleStatus(task)"
+                    title="Haz clic para cambiar estado"
+                  >
+                    <span
+                      class="badge"
+                      [class.success]="task.status === 'Completado'"
+                      [class.warning]="task.status === 'En Proceso'"
+                      [class.info]="task.status === 'Pendiente'"
+                    >
+                      <mat-icon>sync</mat-icon> {{ task.status }}
+                    </span>
+                  </button>
+                </td>
+                <td>
+                  <div class="task-title-cell">
+                    <span class="title-text" [class.completed]="task.status === 'Completado'">
+                      {{ task.title }}
+                    </span>
+                    <span class="id-text mono">ID: {{ task.id }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="category-tag">{{ task.category }}</span>
+                </td>
+                <td>
+                  <span
+                    class="priority-dot"
+                    [class.high]="task.priority === 'Alta'"
+                    [class.mid]="task.priority === 'Media'"
+                  ></span>
+                  <span class="priority-text">{{ task.priority }}</span>
+                </td>
+                <td>
+                  <div class="assignee">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>{{ task.assignedTo }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn btn-sm btn-secondary"
+                      (click)="onToggleStatus(task)"
+                      title="Avanzar estado"
+                    >
+                      <mat-icon>check</mat-icon>
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger"
+                      (click)="onDelete(task.id)"
+                      title="Eliminar registro via DELETE /api/tasks/:id"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+
+  <!-- Create Task Modal -->
+  @if (showModal()) {
+    <div
+      class="modal-backdrop"
+      tabindex="0"
+      role="button"
+      (click)="closeModal()"
+      (keyup.escape)="closeModal()"
+    >
+      <div
+        class="modal-card"
+        tabindex="0"
+        role="dialog"
+        (click)="$event.stopPropagation()"
+        (keyup.escape)="closeModal()"
+      >
+        <div class="modal-header">
+          <h3>
+            <mat-icon>add_circle_outline</mat-icon> Crear Nueva Tarea en REST API
+          </h3>
+          <button class="close-btn" (click)="closeModal()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="taskTitle">Título de la Tarea</label>
+              <input
+                id="taskTitle"
+                type="text"
+                formControlName="title"
+                placeholder="Ej: Optimizar respuesta JSON Server"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="taskCat">Categoría</label>
+                <select id="taskCat" formControlName="category">
+                  <option value="Backend">Backend</option>
+                  <option value="Frontend">Frontend</option>
+                  <option value="API">API</option>
+                  <option value="UI/UX">UI/UX</option>
+                  <option value="DevOps">DevOps</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="taskPrio">Prioridad</label>
+                <select id="taskPrio" formControlName="priority">
+                  <option value="Alta">Alta</option>
+                  <option value="Media">Media</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="assignedTo">Desarrollador Asignado</label>
+              <input
+                id="assignedTo"
+                type="text"
+                formControlName="assignedTo"
+                placeholder="Ej: Sofia Styles"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+              <mat-icon>send</mat-icon> Enviar POST /api/tasks
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

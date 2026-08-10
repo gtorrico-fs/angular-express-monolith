@@ -1,0 +1,304 @@
+@use '../../../../src/styles.scss' as *;
+
+.tasks-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .tasks-bar {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .bar-title {
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        color: $dark-main;
+      }
+
+      p {
+        font-size: 0.85rem;
+        color: $text-muted;
+
+        code {
+          background-color: $angular-red-light;
+          border: 1px solid $angular-red;
+          padding: 2px 6px;
+          border-radius: $radius-sm;
+          color: $angular-red;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .filters-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $text-muted;
+      margin-right: 4px;
+    }
+
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: $radius-sm;
+      border: 2px solid $dark-border;
+      box-shadow: $shadow-hard-sm;
+      background-color: #ffffff;
+      color: $dark-main;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.1s ease;
+
+      &:hover {
+        background-color: $bg-panel;
+      }
+
+      &.active {
+        background-color: $dark-main;
+        color: #ffffff;
+        border-color: $dark-main;
+      }
+    }
+  }
+
+  .tasks-card-container {
+    @include card-base;
+    padding: 0;
+    overflow: hidden;
+
+    .empty-state {
+      padding: 48px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        color: $text-light;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: $text-muted;
+        margin-bottom: 8px;
+      }
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+
+      th {
+        background-color: $bg-panel;
+        padding: 14px 18px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: $text-muted;
+        border-bottom: 2px solid $dark-border;
+      }
+
+      td {
+        padding: 16px 18px;
+        border-bottom: 1px solid $border-light;
+        font-size: 0.875rem;
+        vertical-align: middle;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover td {
+        background-color: $bg-panel;
+      }
+
+      .badge-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+
+        .badge mat-icon {
+          font-size: 14px;
+        }
+      }
+
+      .task-title-cell {
+        display: flex;
+        flex-direction: column;
+
+        .title-text {
+          font-weight: 700;
+          color: $dark-main;
+
+          &.completed {
+            text-decoration: line-through;
+            color: $text-light;
+          }
+        }
+
+        .id-text {
+          font-size: 0.75rem;
+          color: $text-light;
+        }
+      }
+
+      .category-tag {
+        font-size: 0.75rem;
+        font-weight: 800;
+        font-family: $font-mono;
+        text-transform: uppercase;
+        color: $angular-red;
+        background-color: $angular-red-light;
+        border: 1px solid $angular-red;
+        padding: 2px 8px;
+        border-radius: $radius-sm;
+      }
+
+      .priority-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #2563eb;
+        border: 1px solid $dark-border;
+        margin-right: 6px;
+
+        &.high {
+          background-color: #ef4444;
+        }
+
+        &.mid {
+          background-color: #eab308;
+        }
+      }
+
+      .priority-text {
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .assignee {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: $text-muted;
+        font-size: 0.85rem;
+        font-family: $font-mono;
+
+        mat-icon {
+          font-size: 18px;
+        }
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 6px;
+      }
+    }
+  }
+
+  /* Modal styling */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(26, 26, 26, 0.7);
+    @include flex-center;
+    z-index: 1000;
+    padding: 16px;
+
+    .modal-card {
+      background-color: #ffffff;
+      border-radius: $radius-sm;
+      border: 2px solid $dark-border;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 8px 8px 0px #1a1a1a;
+      overflow: hidden;
+
+      .modal-header {
+        @include flex-between;
+        padding: 16px 24px;
+        background-color: $bg-panel;
+        border-bottom: 2px solid $dark-border;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: $dark-main;
+
+          mat-icon {
+            color: $angular-red;
+          }
+        }
+
+        .close-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: $text-muted;
+
+          &:hover {
+            color: $dark-main;
+          }
+        }
+      }
+
+      .modal-body {
+        padding: 24px;
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+      }
+
+      .modal-footer {
+        padding: 16px 24px;
+        background-color: $bg-panel;
+        border-top: 2px solid $dark-border;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+    }
+  }
+}

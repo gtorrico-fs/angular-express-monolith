@@ -1,0 +1,60 @@
+<div class="app-layout">
+  <!-- Header Navbar Component -->
+  <app-header
+    [systemInfo]="apiService.systemInfo()"
+    [activeTab]="activeTab()"
+    (tabChange)="onTabChange($event)"
+  ></app-header>
+
+  <!-- Main View Container -->
+  <main class="main-content">
+    @switch (activeTab()) {
+      @case ('dashboard') {
+        <app-dashboard
+          [systemInfo]="apiService.systemInfo()"
+          [tasks]="apiService.tasks()"
+          [products]="apiService.products()"
+          (navigateTab)="onTabChange($event)"
+        ></app-dashboard>
+      }
+
+      @case ('tasks') {
+        <app-tasks
+          [tasks]="apiService.tasks()"
+          (createTask)="handleCreateTask($event)"
+          (updateTaskStatus)="handleUpdateTaskStatus($event)"
+          (deleteTask)="handleDeleteTask($event)"
+        ></app-tasks>
+      }
+
+      @case ('products') {
+        <app-products
+          [products]="apiService.products()"
+          (createProduct)="handleCreateProduct($event)"
+          (deleteProduct)="handleDeleteProduct($event)"
+        ></app-products>
+      }
+
+      @case ('architecture') {
+        <app-architecture></app-architecture>
+      }
+
+      @case ('patterns') {
+        <app-design-patterns></app-design-patterns>
+      }
+    }
+  </main>
+
+  <!-- Footer Component -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <strong>Monolito Angular & Express</strong>
+      </div>
+      <div class="tech-badges">
+        <span class="badge info">Angular 21 SSR</span>
+        <span class="badge success">Express + JSON Server REST API</span>
+      </div>
+    </div>
+  </footer>
+</div>

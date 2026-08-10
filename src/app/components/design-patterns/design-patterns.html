@@ -1,0 +1,179 @@
+<div class="patterns-page">
+  <!-- Top Bar Banner -->
+  <div class="patterns-bar">
+    <div class="bar-title">
+      <h2>Patrones de Diseño GoF en Angular</h2>
+      <p>Demostración práctica de cómo se implementan los 3 tipos de patrones dentro del código de este monolito (<code class="mono">Angular + Express</code>)</p>
+    </div>
+    <div class="badge red-accent">
+      <mat-icon>integration_instructions</mat-icon> Architecture Blueprint
+    </div>
+  </div>
+
+  <!-- Filter Chips for Categories -->
+  <div class="categories-row">
+    <button
+      class="filter-chip"
+      [class.active]="selectedCategory() === 'all'"
+      (click)="setCategory('all')"
+    >
+      Todos los Patrones ({{ getCategoryCount('all') }})
+    </button>
+    <button
+      class="filter-chip creational"
+      [class.active]="selectedCategory() === 'creational'"
+      (click)="setCategory('creational')"
+    >
+      <mat-icon>precision_manufacturing</mat-icon>
+      Creacionales ({{ getCategoryCount('creational') }})
+    </button>
+    <button
+      class="filter-chip structural"
+      [class.active]="selectedCategory() === 'structural'"
+      (click)="setCategory('structural')"
+    >
+      <mat-icon>account_tree</mat-icon>
+      Estructurales ({{ getCategoryCount('structural') }})
+    </button>
+    <button
+      class="filter-chip behavioral"
+      [class.active]="selectedCategory() === 'behavioral'"
+      (click)="setCategory('behavioral')"
+    >
+      <mat-icon>alt_route</mat-icon>
+      Comportamentales ({{ getCategoryCount('behavioral') }})
+    </button>
+  </div>
+
+  <!-- Overview Cards Summary Row -->
+  <div class="summary-grid">
+    <div class="summary-card creational">
+      <div class="card-icon">
+        <mat-icon>add_box</mat-icon>
+      </div>
+      <div class="card-info">
+        <h3>1. Creacionales</h3>
+        <p>Mecanismos de creación de objetos para abstraer la instanciación e inyección.</p>
+        <div class="tag-list">
+          <span class="type-tag">Singleton</span>
+          <span class="type-tag">Factory / DI</span>
+          <span class="type-tag">Builder</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-card structural">
+      <div class="card-icon">
+        <mat-icon>account_tree</mat-icon>
+      </div>
+      <div class="card-info">
+        <h3>2. Estructurales</h3>
+        <p>Composición de clases y objetos para formar estructuras complejas e interfaces organizadas.</p>
+        <div class="tag-list">
+          <span class="type-tag">Decorator</span>
+          <span class="type-tag">Composite</span>
+          <span class="type-tag">Adapter / Proxy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-card behavioral">
+      <div class="card-icon">
+        <mat-icon>alt_route</mat-icon>
+      </div>
+      <div class="card-info">
+        <h3>3. Comportamentales</h3>
+        <p>Algoritmos y asignación de responsabilidades de comunicación reactiva entre componentes.</p>
+        <div class="tag-list">
+          <span class="type-tag">Observer (Signals)</span>
+          <span class="type-tag">Mediator</span>
+          <span class="type-tag">Strategy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Accordion List of Design Patterns -->
+  <div class="patterns-list">
+    @for (pattern of filteredPatterns; track pattern.id) {
+      <div
+        class="pattern-card"
+        [class.expanded]="expandedPatternId() === pattern.id"
+        [class.type-creational]="pattern.type === 'creational'"
+        [class.type-structural]="pattern.type === 'structural'"
+        [class.type-behavioral]="pattern.type === 'behavioral'"
+      >
+        <!-- Card Header (Clickable) -->
+        <button type="button" class="pattern-header" (click)="toggleExpand(pattern.id)">
+          <div class="header-left">
+            <div class="pattern-icon-box">
+              <mat-icon>{{ pattern.icon }}</mat-icon>
+            </div>
+            <div class="pattern-titles">
+              <div class="badge-row">
+                <span class="badge" [class.danger]="pattern.type === 'creational'" [class.info]="pattern.type === 'structural'" [class.warning]="pattern.type === 'behavioral'">
+                  {{ pattern.typeName }}
+                </span>
+                <span class="file-badge mono">
+                  <mat-icon>description</mat-icon> {{ pattern.fileLocation }}
+                </span>
+              </div>
+              <h3 class="pattern-name">{{ pattern.name }}</h3>
+            </div>
+          </div>
+
+          <div class="header-right">
+            <span class="expand-label font-mono">
+              @if (expandedPatternId() === pattern.id) {
+                Ocultar Detalles [-]
+              } @else {
+                Ver Código [+]
+              }
+            </span>
+            <span class="toggle-btn">
+              <mat-icon>
+                @if (expandedPatternId() === pattern.id) {
+                  expand_less
+                } @else {
+                  expand_more
+                }
+              </mat-icon>
+            </span>
+          </div>
+        </button>
+
+        <!-- Summary teaser always visible -->
+        <p class="pattern-summary">{{ pattern.summary }}</p>
+
+        <!-- Expanded Detailed Content -->
+        @if (expandedPatternId() === pattern.id) {
+          <div class="pattern-details">
+            <div class="detail-section">
+              <div class="concept-banner">
+                <mat-icon>auto_awesome</mat-icon>
+                <div>
+                  <strong>Concepto en Angular:</strong>
+                  <span>{{ pattern.angularConcept }}</span>
+                </div>
+              </div>
+
+              <div class="code-wrapper">
+                <div class="code-header">
+                  <span class="code-title mono">
+                    <mat-icon>code</mat-icon> Código Relevante en {{ pattern.fileLocation }}
+                  </span>
+                </div>
+                <pre class="code-body mono"><code>{{ pattern.codeSnippet }}</code></pre>
+              </div>
+
+              <div class="explanation-box">
+                <h4><mat-icon>tips_and_updates</mat-icon> ¿Cómo Funciona en Nuestro Monolito?</h4>
+                <p>{{ pattern.explanation }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

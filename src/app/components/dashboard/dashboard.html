@@ -1,0 +1,171 @@
+<div class="dashboard-page">
+  <!-- Hero Monolith Banner -->
+  <div class="hero-card">
+    <div class="hero-content">
+      <div class="pill-badge">
+        <mat-icon>check_circle</mat-icon>
+        <span>Arquitectura Monolítica Activa</span>
+      </div>
+      <h2>Demostración de Monolito Desplegable</h2>
+      <p>
+        Un único proceso servido en Node.js Express unifica el <strong>Frontend Angular SSR</strong>
+        y la <strong>API REST simulada con JSON-Server</strong>. Estilizado 100% en SCSS puro.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" (click)="onNavigate('architecture')">
+          <mat-icon>schema</mat-icon> Ver Diagrama de Arquitectura
+        </button>
+        <button class="btn btn-secondary" (click)="onNavigate('tasks')">
+          <mat-icon>assignment</mat-icon> Probar CRUD de Tareas
+        </button>
+      </div>
+    </div>
+    <div class="hero-illustration">
+      <div class="tech-stack-grid">
+        <div class="tech-box angular">
+          <mat-icon>code</mat-icon>
+          <span>Angular 21 SSR</span>
+        </div>
+        <div class="connect-line">+</div>
+        <div class="tech-box express">
+          <mat-icon>dns</mat-icon>
+          <span>Express REST API</span>
+        </div>
+        <div class="connect-line">+</div>
+        <div class="tech-box scss">
+          <mat-icon>style</mat-icon>
+          <span>Estilos SCSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics Grid -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-icon primary">
+        <mat-icon>sync_alt</mat-icon>
+      </div>
+      <div class="metric-data">
+        <span class="metric-label">Peticiones HTTP a la API</span>
+        <span class="metric-value">{{ systemInfo()?.totalApiCalls || 0 }}</span>
+        <span class="metric-sub">Rutas /api/tasks y /api/products</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon success">
+        <mat-icon>task_alt</mat-icon>
+      </div>
+      <div class="metric-data">
+        <span class="metric-label">Tareas Registradas</span>
+        <span class="metric-value">{{ tasks().length }}</span>
+        <span class="metric-sub">{{ completedTasksCount }} completadas / {{ pendingTasksCount }} pendientes</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon warning">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      <div class="metric-data">
+        <span class="metric-label">Ítems de Inventario</span>
+        <span class="metric-value">{{ products().length }}</span>
+        <span class="metric-sub">Gestionados por JSON Server</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon info">
+        <mat-icon>timer</mat-icon>
+      </div>
+      <div class="metric-data">
+        <span class="metric-label">Tiempo Activo Servidor</span>
+        <span class="metric-value">{{ systemInfo()?.uptimeSeconds || 0 }}s</span>
+        <span class="metric-sub">Express Monolith Container</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two Column Content Grid -->
+  <div class="content-grid">
+    <!-- Left Column: Architecture Highlights -->
+    <div class="panel-card">
+      <div class="panel-header">
+        <div class="panel-title">
+          <mat-icon>storage</mat-icon>
+          <h3>Características del Monolito</h3>
+        </div>
+        <span class="badge success">Proceso Unificado</span>
+      </div>
+      <div class="panel-body">
+        <ul class="feature-list">
+          <li class="feature-item">
+            <div class="icon-wrap">
+              <mat-icon>memory</mat-icon>
+            </div>
+            <div class="item-text">
+              <h4>Despliegue en Único Contenedor</h4>
+              <p>El cliente (Angular SSR) y la API REST son compilados y servidos en la misma unidad de ejecucion de Cloud Run.</p>
+            </div>
+          </li>
+
+          <li class="feature-item">
+            <div class="icon-wrap">
+              <mat-icon>api</mat-icon>
+            </div>
+            <div class="item-text">
+              <h4>Rutas REST nativas (/api/*)</h4>
+              <p>Simulador JSON-Server integrado en el servidor Express, con sincronización de estado en <code class="mono">db.json</code>.</p>
+            </div>
+          </li>
+
+          <li class="feature-item">
+            <div class="icon-wrap">
+              <mat-icon>palette</mat-icon>
+            </div>
+            <div class="item-text">
+              <h4>Diseño 100% SCSS Puro</h4>
+              <p>Sin dependencias de Tailwind CSS. Variables SCSS, mixins de diseño, Flexbox y CSS Grid personalizado.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: Recent Tasks Preview -->
+    <div class="panel-card">
+      <div class="panel-header">
+        <div class="panel-title">
+          <mat-icon>list_alt</mat-icon>
+          <h3>Tareas Recientes del Sistema</h3>
+        </div>
+        <button class="btn btn-sm btn-secondary" (click)="onNavigate('tasks')">
+          Ver Todas ({{ tasks().length }})
+        </button>
+      </div>
+      <div class="panel-body">
+        @if (tasks().length === 0) {
+          <p class="empty-msg">No hay tareas creadas aún en el monolito.</p>
+        } @else {
+          <div class="recent-list">
+            @for (task of tasks().slice(0, 4); track task.id) {
+              <div class="recent-item">
+                <div class="item-left">
+                  <span class="status-indicator" [class.done]="task.status === 'Completado'"></span>
+                  <div>
+                    <span class="task-title">{{ task.title }}</span>
+                    <span class="task-meta">{{ task.category }} &bull; {{ task.assignedTo }}</span>
+                  </div>
+                </div>
+                <span class="badge" [class.success]="task.status === 'Completado'" [class.warning]="task.status === 'En Proceso'" [class.info]="task.status === 'Pendiente'">
+                  {{ task.status }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="products-page">
+  <!-- Top Bar -->
+  <div class="products-bar">
+    <div class="bar-title">
+      <h2>Inventario y Recurso REST API</h2>
+      <p>Gestión de recursos servida mediante JSON-Server en el monolito (<code class="mono">/api/products</code>)</p>
+    </div>
+    <div class="bar-actions">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="Buscar recurso..."
+          [value]="searchTerm()"
+          (input)="onSearchChange($event)"
+        />
+      </div>
+      <button class="btn btn-primary" (click)="openModal()">
+        <mat-icon>add_box</mat-icon> Nuevo Recurso
+      </button>
+    </div>
+  </div>
+
+  <!-- Cards Grid for Products -->
+  <div class="products-grid">
+    @if (filteredProducts.length === 0) {
+      <div class="empty-state">
+        <mat-icon>inventory</mat-icon>
+        <h3>No hay recursos coincidentes</h3>
+        <p>Añade un nuevo recurso para visualizarlo en el inventario de la API.</p>
+        <button class="btn btn-secondary" (click)="openModal()">
+          <mat-icon>add</mat-icon> Añadir Recurso
+        </button>
+      </div>
+    } @else {
+      @for (product of filteredProducts; track product.id) {
+        <div class="product-card">
+          <div class="product-header">
+            <span class="category-chip">{{ product.category }}</span>
+            <span class="badge success">{{ product.status }}</span>
+          </div>
+
+          <h3 class="product-title">{{ product.name }}</h3>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Stock disponible:</span>
+              <span class="detail-value mono">{{ product.stock }} unidades</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Precio estimado:</span>
+              <span class="detail-value price">${{ product.price }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">ID Recurso:</span>
+              <span class="detail-value mono">{{ product.id }}</span>
+            </div>
+          </div>
+
+          <div class="product-footer">
+            <button class="btn btn-sm btn-secondary" (click)="onDelete(product.id)">
+              <mat-icon>delete</mat-icon> Eliminar REST
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Create Product Modal -->
+  @if (showModal()) {
+    <div
+      class="modal-backdrop"
+      tabindex="0"
+      role="button"
+      (click)="closeModal()"
+      (keyup.escape)="closeModal()"
+    >
+      <div
+        class="modal-card"
+        tabindex="0"
+        role="dialog"
+        (click)="$event.stopPropagation()"
+        (keyup.escape)="closeModal()"
+      >
+        <div class="modal-header">
+          <h3>
+            <mat-icon>add_shopping_cart</mat-icon> Agregar Recurso al Inventario REST
+          </h3>
+          <button class="close-btn" (click)="closeModal()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="prodName">Nombre del Recurso / Componente</label>
+              <input
+                id="prodName"
+                type="text"
+                formControlName="name"
+                placeholder="Ej: Módulo de Autenticación Express"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="prodCategory">Categoría</label>
+              <select id="prodCategory" formControlName="category">
+                <option value="Frontend Core">Frontend Core</option>
+                <option value="Backend Core">Backend Core</option>
+                <option value="API Gateway">API Gateway</option>
+                <option value="Design System">Design System</option>
+                <option value="Base de Datos">Base de Datos</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prodStock">Stock / Unidades</label>
+                <input
+                  id="prodStock"
+                  type="number"
+                  formControlName="stock"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="prodPrice">Precio ($)</label>
+                <input
+                  id="prodPrice"
+                  type="number"
+                  step="0.01"
+                  formControlName="price"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+              <mat-icon>cloud_upload</mat-icon> Guardar via POST /api/products
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

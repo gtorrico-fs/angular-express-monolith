@@ -1,0 +1,125 @@
+<div class="arch-page">
+  <!-- Section Title -->
+  <div class="arch-header">
+    <h2>Arquitectura de Monolito Desplegable</h2>
+    <p>Explicación técnica y probador interactivo de endpoints REST integrados en Express</p>
+  </div>
+
+  <!-- Monolith Visual Architecture Diagram -->
+  <div class="diagram-card">
+    <div class="diagram-title">
+      <mat-icon>hub</mat-icon>
+      <h3>Diagrama del Proceso Único (Cloud Run / Node.js)</h3>
+    </div>
+
+    <div class="nodes-container">
+      <!-- Client Box -->
+      <div class="node-box client">
+        <div class="node-icon">
+          <mat-icon>devices</mat-icon>
+        </div>
+        <span class="node-name">Navegador Cliente</span>
+        <span class="node-sub">HTTP / JSON</span>
+      </div>
+
+      <div class="connector-line">
+        <mat-icon>arrow_forward</mat-icon>
+        <span>Puerto 3000</span>
+      </div>
+
+      <!-- Monolith Box -->
+      <div class="node-box monolith">
+        <div class="monolith-badge">MONOLITO DE UN SOLO PROCESO</div>
+        <div class="sub-nodes">
+          <div class="sub-node angular">
+            <mat-icon>web</mat-icon>
+            <div>
+              <strong>Angular 21 SSR</strong>
+              <span>Renderizado Server-Side</span>
+            </div>
+          </div>
+          <div class="divider">+</div>
+          <div class="sub-node express">
+            <mat-icon>api</mat-icon>
+            <div>
+              <strong>Express REST Router</strong>
+              <span>JSON Server Backend</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector-line">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>Lectura / Escritura</span>
+      </div>
+
+      <!-- Storage Box -->
+      <div class="node-box storage">
+        <div class="node-icon">
+          <mat-icon>folder_zip</mat-icon>
+        </div>
+        <span class="node-name">db.json Storage</span>
+        <span class="node-sub">Estado Persistente Local</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive API Tester -->
+  <div class="tester-card">
+    <div class="tester-header">
+      <div class="panel-title">
+        <mat-icon>terminal</mat-icon>
+        <h3>Probador Interactivo de Endpoints REST</h3>
+      </div>
+      @if (apiLatency() !== null) {
+        <span class="badge success">
+          <mat-icon>speed</mat-icon> Latencia: {{ apiLatency() }}ms
+        </span>
+      }
+    </div>
+
+    <div class="tester-body">
+      <!-- Endpoint Buttons -->
+      <div class="endpoints-list">
+        <span class="section-label">Haz clic para enviar la petición:</span>
+
+        <button class="endpoint-btn get" (click)="testEndpoint('GET', '/api/system')">
+          <span class="method get">GET</span>
+          <span class="url">/api/system</span>
+        </button>
+
+        <button class="endpoint-btn get" (click)="testEndpoint('GET', '/api/tasks')">
+          <span class="method get">GET</span>
+          <span class="url">/api/tasks</span>
+        </button>
+
+        <button class="endpoint-btn post" (click)="testEndpoint('POST', '/api/tasks')">
+          <span class="method post">POST</span>
+          <span class="url">/api/tasks</span>
+        </button>
+
+        <button class="endpoint-btn get" (click)="testEndpoint('GET', '/api/products')">
+          <span class="method get">GET</span>
+          <span class="url">/api/products</span>
+        </button>
+
+        <button class="endpoint-btn post" (click)="testEndpoint('POST', '/api/products')">
+          <span class="method post">POST</span>
+          <span class="url">/api/products</span>
+        </button>
+      </div>
+
+      <!-- JSON Response Code Console -->
+      <div class="console-wrapper">
+        <div class="console-header">
+          <span class="console-title">
+            <mat-icon>code</mat-icon> {{ selectedEndpoint() || 'Consola de Respuesta HTTP' }}
+          </span>
+          <span class="badge info">JSON Output</span>
+        </div>
+        <pre class="console-body mono">{{ apiResponse() }}</pre>
+      </div>
+    </div>
+  </div>
+</div>

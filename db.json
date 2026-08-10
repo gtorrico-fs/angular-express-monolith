@@ -1,0 +1,101 @@
+{
+  "tasks": [
+    {
+      "id": "1786380785856",
+      "title": "Tarea Creada Desde API Tester",
+      "category": "API",
+      "status": "Pendiente",
+      "priority": "Alta",
+      "assignedTo": "Tester Monolito",
+      "updatedAt": "2026-08-10T16:53:05.856Z"
+    },
+    {
+      "id": "2",
+      "title": "Configurar Renderizado SSR con Angular 21",
+      "category": "Frontend",
+      "status": "Completado",
+      "priority": "Alta",
+      "assignedTo": "Ana Frontend",
+      "updatedAt": "2026-08-10T16:52:46.889Z"
+    },
+    {
+      "id": "3",
+      "title": "Montar Simulador de REST API con JSON Server",
+      "category": "API",
+      "status": "Completado",
+      "priority": "Media",
+      "assignedTo": "David Backend",
+      "updatedAt": "2026-08-09T12:15:00Z"
+    },
+    {
+      "id": "5",
+      "title": "Validar Arquitectura Monolítica en Contenedor Único",
+      "category": "DevOps",
+      "status": "Pendiente",
+      "priority": "Alta",
+      "assignedTo": "DevOps Lead",
+      "updatedAt": "2026-08-09T13:45:00Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "1786380802194",
+      "name": "Nuevo Componente",
+      "category": "API",
+      "stock": 1,
+      "price": 0,
+      "status": "Pendiente"
+    },
+    {
+      "id": "1786380788165",
+      "name": "Nuevo Componente",
+      "category": "API",
+      "stock": 1,
+      "price": 0,
+      "status": "Pendiente"
+    },
+    {
+      "id": "101",
+      "name": "Módulo Angular 21 SSR Engine",
+      "category": "Frontend Core",
+      "stock": 100,
+      "price": 299.99,
+      "status": "Disponible"
+    },
+    {
+      "id": "102",
+      "name": "Servidor Express Monolítico",
+      "category": "Backend Core",
+      "stock": 85,
+      "price": 199.5,
+      "status": "Disponible"
+    },
+    {
+      "id": "103",
+      "name": "REST Router JSON Server",
+      "category": "API Gateway",
+      "stock": 50,
+      "price": 149,
+      "status": "Disponible"
+    },
+    {
+      "id": "104",
+      "name": "Sistema de Estilos SCSS",
+      "category": "Design System",
+      "stock": 200,
+      "price": 89.9,
+      "status": "Disponible"
+    }
+  ],
+  "system": {
+    "name": "Monolito Desplegable Angular + Express REST API",
+    "architecture": "Single Container Monolith",
+    "frontendFramework": "Angular 21 (Zoneless + Signals)",
+    "apiProvider": "JSON-Server + Express Router",
+    "stylePreprocessor": "SCSS (Sass Custom Design System)",
+    "status": "ONLINE",
+    "serverPort": 3000,
+    "uptimeSeconds": 1450,
+    "totalApiCalls": 284
+  }
+}

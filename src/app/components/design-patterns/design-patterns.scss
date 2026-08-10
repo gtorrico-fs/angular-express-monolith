@@ -1,0 +1,452 @@
+@use '../../../../src/styles.scss' as *;
+
+.patterns-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .patterns-bar {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .bar-title {
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $dark-main;
+        letter-spacing: -0.01em;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: $text-muted;
+
+        code {
+          background-color: $angular-red-light;
+          border: 1px solid $angular-red;
+          padding: 2px 6px;
+          border-radius: $radius-sm;
+          color: $angular-red;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .badge.red-accent {
+      background-color: $angular-red;
+      color: #ffffff;
+      border: 2px solid $dark-border;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      box-shadow: $shadow-hard-sm;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .categories-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: $radius-sm;
+      border: 2px solid $dark-border;
+      box-shadow: $shadow-hard-sm;
+      background-color: #ffffff;
+      color: $dark-main;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.1s ease;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        background-color: $bg-panel;
+      }
+
+      &.active {
+        background-color: $dark-main;
+        color: #ffffff;
+        border-color: $dark-main;
+
+        mat-icon {
+          color: #ffffff;
+        }
+      }
+
+      &.creational.active {
+        background-color: $angular-red;
+        border-color: $dark-border;
+      }
+
+      &.structural.active {
+        background-color: #2563eb;
+        border-color: $dark-border;
+      }
+
+      &.behavioral.active {
+        background-color: #d97706;
+        border-color: $dark-border;
+      }
+    }
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+
+    .summary-card {
+      @include card-base;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background-color: #ffffff;
+
+      .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: $radius-sm;
+        border: 2px solid $dark-border;
+        @include flex-center;
+        flex-shrink: 0;
+
+        mat-icon {
+          font-size: 24px;
+        }
+      }
+
+      .card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          color: $dark-main;
+        }
+
+        p {
+          font-size: 0.825rem;
+          color: $text-muted;
+          line-height: 1.4;
+        }
+
+        .tag-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 6px;
+
+          .type-tag {
+            font-size: 0.7rem;
+            font-family: $font-mono;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: $radius-sm;
+            border: 1px solid $dark-border;
+            background-color: $bg-panel;
+          }
+        }
+      }
+
+      &.creational {
+        border-top: 4px solid $angular-red;
+
+        .card-icon {
+          background-color: $angular-red-light;
+          color: $angular-red;
+        }
+      }
+
+      &.structural {
+        border-top: 4px solid #2563eb;
+
+        .card-icon {
+          background-color: #dbeafe;
+          color: #2563eb;
+        }
+      }
+
+      &.behavioral {
+        border-top: 4px solid #d97706;
+
+        .card-icon {
+          background-color: #fef3c7;
+          color: #d97706;
+        }
+      }
+    }
+  }
+
+  .patterns-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .pattern-card {
+      @include card-base;
+      padding: 20px 24px;
+      transition: all 0.15s ease;
+
+      .pattern-header {
+        @include flex-between;
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 0;
+        text-align: left;
+        font-family: inherit;
+        cursor: pointer;
+        user-select: none;
+        gap: 16px;
+
+        .header-left {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          .pattern-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: $radius-sm;
+            border: 2px solid $dark-border;
+            @include flex-center;
+            flex-shrink: 0;
+
+            mat-icon {
+              font-size: 22px;
+            }
+          }
+
+          .pattern-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .badge-row {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              flex-wrap: wrap;
+
+              .file-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 0.75rem;
+                color: $text-muted;
+
+                mat-icon {
+                  font-size: 14px;
+                  width: 14px;
+                  height: 14px;
+                }
+              }
+            }
+
+            .pattern-name {
+              font-size: 1.1rem;
+              font-weight: 800;
+              color: $dark-main;
+            }
+          }
+        }
+
+        .header-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          .expand-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $text-muted;
+          }
+
+          .toggle-btn {
+            background: none;
+            border: 2px solid $dark-border;
+            border-radius: $radius-sm;
+            width: 32px;
+            height: 32px;
+            @include flex-center;
+            cursor: pointer;
+            background-color: $bg-panel;
+
+            mat-icon {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      .pattern-summary {
+        font-size: 0.9rem;
+        color: $text-muted;
+        margin-top: 12px;
+        line-height: 1.5;
+        padding-left: 58px;
+
+        @media (max-width: 640px) {
+          padding-left: 0;
+        }
+      }
+
+      &.type-creational {
+        .pattern-icon-box {
+          background-color: $angular-red-light;
+          color: $angular-red;
+        }
+      }
+
+      &.type-structural {
+        .pattern-icon-box {
+          background-color: #dbeafe;
+          color: #2563eb;
+        }
+      }
+
+      &.type-behavioral {
+        .pattern-icon-box {
+          background-color: #fef3c7;
+          color: #d97706;
+        }
+      }
+
+      &.expanded {
+        border-color: $dark-main;
+        box-shadow: 6px 6px 0px $dark-main;
+
+        .pattern-header {
+          padding-bottom: 12px;
+          border-bottom: 2px solid $dark-border;
+        }
+
+        .pattern-summary {
+          padding-left: 0;
+        }
+      }
+
+      .pattern-details {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .concept-banner {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          background-color: $angular-red-light;
+          border: 2px solid $angular-red;
+          padding: 12px 16px;
+          border-radius: $radius-sm;
+          color: $angular-red;
+          font-size: 0.875rem;
+
+          mat-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+
+          strong {
+            font-weight: 800;
+            margin-right: 6px;
+          }
+        }
+
+        .code-wrapper {
+          border-radius: $radius-sm;
+          border: 2px solid $dark-border;
+          background-color: #1a1a1a;
+          color: #f8fafc;
+          overflow: hidden;
+          margin-top: 12px;
+
+          .code-header {
+            background-color: #262626;
+            padding: 8px 16px;
+            border-bottom: 2px solid #333333;
+
+            .code-title {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 0.75rem;
+              color: #a3e635;
+              font-weight: 700;
+
+              mat-icon {
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+
+          .code-body {
+            padding: 16px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 0;
+          }
+        }
+
+        .explanation-box {
+          background-color: $bg-panel;
+          border: 2px solid $dark-border;
+          padding: 16px;
+          border-radius: $radius-sm;
+          margin-top: 12px;
+
+          h4 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: $dark-main;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+
+            mat-icon {
+              color: $angular-red;
+              font-size: 18px;
+            }
+          }
+
+          p {
+            font-size: 0.875rem;
+            color: $text-muted;
+            line-height: 1.6;
+          }
+        }
+      }
+    }
+  }
+}
