@@ -1,15 +1,6 @@
 {
   "tasks": [
     {
-      "id": "1786380785856",
-      "title": "Tarea Creada Desde API Tester",
-      "category": "API",
-      "status": "Pendiente",
-      "priority": "Alta",
-      "assignedTo": "Tester Monolito",
-      "updatedAt": "2026-08-10T16:53:05.856Z"
-    },
-    {
       "id": "2",
       "title": "Configurar Renderizado SSR con Angular 21",
       "category": "Frontend",
@@ -38,14 +29,6 @@
     }
   ],
   "products": [
-    {
-      "id": "1786380802194",
-      "name": "Nuevo Componente",
-      "category": "API",
-      "stock": 1,
-      "price": 0,
-      "status": "Pendiente"
-    },
     {
       "id": "1786380788165",
       "name": "Nuevo Componente",

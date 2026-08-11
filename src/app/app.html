@@ -1,11 +1,12 @@
 <div class="app-layout">
   <!-- Header Navbar Component -->
+
   <app-header
     [systemInfo]="apiService.systemInfo()"
     [activeTab]="activeTab()"
     (tabChange)="onTabChange($event)"
   ></app-header>
-
+  hola mundo
   <!-- Main View Container -->
   <main class="main-content">
     @switch (activeTab()) {
